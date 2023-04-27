@@ -25,10 +25,13 @@
   const route = useRoute();
 
   const isNeedPermission = computed(()=> {
+    if (!settingsStore?.hasfetch)
+      settingsStore.fetchSettings()
+
     if (settingsStore.auth === "") {
       return false
     }
-    return settingsStore.auth === globalStore.auth
+    return settingsStore.auth !== globalStore.auth
   })
   const isNeedTabBar = computed(() => {
     return route.meta?.needTabBar ?? false;
