@@ -24,9 +24,13 @@ const disabled = computed(() => (!password.value.trim()) || loading.value)
 async function handleVerify() {
   const passWord = password.value.trim()
 
-  if (!passWord || passWord !== settingsStore.auth)
+  if (!passWord)
     return showNotify({ title: t('permissionPage.invalid'), type: 'danger' });
 
+  const token = await settingsStore.verify(passWord)
+  if (!token) {
+    return showNotify({ title: t('permissionPage.invalid'), type: 'danger' });
+  }
   try {
     loading.value = true
     showNotify({ title: t('permissionPage.succeed') });
@@ -35,7 +39,8 @@ async function handleVerify() {
     password.value = ''
   }
   finally {
-    globalStore.setAuth(settingsStore.auth)
+    globalStore.setAuth(token)
+    window.location.reload()
   }
 }
 

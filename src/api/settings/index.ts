@@ -1,8 +1,15 @@
-import request from '@/api';
+import request, {settoken} from '@/api';
 import { AxiosPromise } from 'axios';
 
 export function useSettingsApi() {
   return {
+    verify: (data: SettingsPostData): AxiosPromise<MyAxiosRes> => {
+      return request({
+        url: '/api/verify',
+        method: 'post',
+        data: data
+      });
+    },
     getSettings: (): AxiosPromise<MyAxiosRes> => {
       return request({
         url: '/api/settings',

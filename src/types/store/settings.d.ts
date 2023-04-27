@@ -7,8 +7,9 @@ interface SettingsBase {
 }
 
 interface SettingsPostData {
+  password?: string;
   hasfetch?: boolean;
-  auth?: string;
+  auth?: boolean;
   gistToken?: string;
   githubUser?: string;
   theme?: {

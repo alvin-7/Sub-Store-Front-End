@@ -1,7 +1,8 @@
 import { useAppNotifyStore } from '@/store/appNotify';
-import axios, { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 let appNotifyStore = null;
+let token = "";
 
 const notifyConfig: { type: 'danger'; duration: number } = {
   type: 'danger',
@@ -14,6 +15,15 @@ const service = axios.create({
   timeout: 50000,
   headers: { 'Content-Type': 'application/json' },
 });
+
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    if (token) {
+      config.headers['x-auth'] = token; 
+    }
+    return config;
+  }
+);
 
 service.interceptors.response.use(
   (response: AxiosResponse<SucceedResponse>): AxiosPromise<SucceedResponse> => {
@@ -55,3 +65,6 @@ service.interceptors.response.use(
 
 // 导出 axios 实例
 export default service;
+export function settoken(t: string) {
+  token = t
+}

@@ -11,7 +11,7 @@ export const useSettingsStore = defineStore('settingsStore', {
   state: (): SettingsStoreState => {
     return {
       hasfetch: false,
-      auth: '',
+      auth: false,
       gistToken: '',
       githubUser: '',
       syncTime: 0,
@@ -27,6 +27,13 @@ export const useSettingsStore = defineStore('settingsStore', {
   },
   getters: {},
   actions: {
+    async verify(password: string): Promise<string> {
+      const {data: res} = await settingsApi.verify({password: password});
+      if (res.status === "success") {
+        return String(res.data)
+      }
+      return ""
+    },
     async fetchSettings() {
       const { data: res } = await settingsApi.getSettings();
       if (res.status === 'success') {

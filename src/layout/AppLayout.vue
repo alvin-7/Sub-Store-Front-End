@@ -28,10 +28,10 @@
     if (!settingsStore?.hasfetch)
       settingsStore.fetchSettings()
 
-    if (settingsStore.auth === "") {
-      return false
+    if (settingsStore.auth && !globalStore.auth) {
+      return true
     }
-    return settingsStore.auth !== globalStore.auth
+    return !globalStore.auth
   })
   const isNeedTabBar = computed(() => {
     return route.meta?.needTabBar ?? false;

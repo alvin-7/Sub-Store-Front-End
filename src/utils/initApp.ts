@@ -1,5 +1,6 @@
 import { useEnvApi } from '@/api/env';
 import i18n from '@/locales';
+import {settoken} from '@/api';
 import { useAppNotifyStore } from '@/store/appNotify';
 import { useArtifactsStore } from '@/store/artifacts';
 import { useGlobalStore } from '@/store/global';
@@ -29,6 +30,9 @@ export const initStores = async (
 
   // 更新所有数据
   try {
+    if (globalStore.auth) {
+      settoken(globalStore.auth)
+    }
     await subsStore.fetchSubsData();
     await artifactsStore.fetchArtifactsData();
     await settingsStore.fetchSettings();
