@@ -10,6 +10,7 @@ const { t } = i18n.global;
 export const useSettingsStore = defineStore('settingsStore', {
   state: (): SettingsStoreState => {
     return {
+      auth: '',
       gistToken: '',
       githubUser: '',
       syncTime: 0,
@@ -28,6 +29,7 @@ export const useSettingsStore = defineStore('settingsStore', {
     async fetchSettings() {
       const { data: res } = await settingsApi.getSettings();
       if (res.status === 'success') {
+        this.auth = res.data.auth || '';
         this.gistToken = res.data.gistToken || '';
         this.githubUser = res.data.githubUser || '';
         this.syncTime = res.data.syncTime || 0;

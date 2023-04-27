@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useGlobalStore } from '@/store/global';
 import { Button, Input, Form, FormItem, OverLay } from '@nutui/nutui';
 import { useAppNotifyStore } from '@/store/appNotify';
+import { useSettingsStore } from '@/store/settings';
 import i18n from '@/locales';
 
 interface Props {
@@ -14,6 +15,7 @@ defineProps<Props>()
 const { t } = i18n.global;
 const { showNotify } = useAppNotifyStore();
 const globalStore = useGlobalStore();
+const settingsStore = useSettingsStore();
 const loading = ref(false)
 const password = ref('')
 
@@ -22,8 +24,7 @@ const disabled = computed(() => (!password.value.trim()) || loading.value)
 async function handleVerify() {
   const passWord = password.value.trim()
 
-  console.log(passWord)
-  if (!passWord || passWord !== import.meta.env.VITE_API_PASSWORD)
+  if (!passWord || passWord !== settingsStore.auth)
     return showNotify({ title: t('permissionPage.invalid'), type: 'danger' });
 
   try {
@@ -34,7 +35,7 @@ async function handleVerify() {
     password.value = ''
   }
   finally {
-    globalStore.setAuth(true)
+    globalStore.setAuth(settingsStore.auth)
   }
 }
 

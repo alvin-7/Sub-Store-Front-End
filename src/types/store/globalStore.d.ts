@@ -1,5 +1,5 @@
 interface GlobalStoreState {
-  hasAuth: boolean,
+  auth: string,
   isLoading: boolean;
   isFlowFetching: boolean;
   fetchResult: boolean;

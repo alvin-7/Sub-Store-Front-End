@@ -15,14 +15,21 @@
   import { computed } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useGlobalStore } from '@/store/global';
+  import { useSettingsStore } from '@/store/settings';
   import router from '@/router';
 
   const globalStore = useGlobalStore();
+  const settingsStore = useSettingsStore();
   const { bottomSafeArea } = storeToRefs(globalStore);
 
   const route = useRoute();
 
-  const isNeedPermission = computed(()=>!globalStore.hasAuth)
+  const isNeedPermission = computed(()=> {
+    if (settingsStore.auth === "") {
+      return false
+    }
+    return settingsStore.auth === globalStore.auth
+  })
   const isNeedTabBar = computed(() => {
     return route.meta?.needTabBar ?? false;
   });

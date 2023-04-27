@@ -7,6 +7,7 @@ interface SettingsBase {
 }
 
 interface SettingsPostData {
+  auth?: string;
   gistToken?: string;
   githubUser?: string;
   theme?: {
