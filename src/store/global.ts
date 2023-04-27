@@ -5,7 +5,9 @@ const envApi = useEnvApi();
 
 export const useGlobalStore = defineStore('globalStore', {
   state: (): GlobalStoreState => {
+    const hasAuth = Boolean(window.localStorage.getItem("auth"))
     return {
+      hasAuth: hasAuth,
       isLoading: true,
       isFlowFetching: true,
       fetchResult: false,
@@ -16,6 +18,10 @@ export const useGlobalStore = defineStore('globalStore', {
   },
   getters: {},
   actions: {
+    setAuth(auth: boolean) {
+      this.hasAuth = auth;
+      window.localStorage.setItem("auth", String(auth))
+    },
     setBottomSafeArea(height: number) {
       this.bottomSafeArea = height;
     },

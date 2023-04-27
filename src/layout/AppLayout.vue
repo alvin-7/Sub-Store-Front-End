@@ -1,11 +1,15 @@
 <template>
-  <div class="app-layout-wrapper">
-    <router-view />
+  <Permission :visible="isNeedPermission"/>
+  <div class="app-full-layout-wrapper" v-if="!isNeedPermission">
+    <div class="app-layout-wrapper">
+      <router-view />
+    </div>
+    <TabBar v-if="isNeedTabBar" />
   </div>
-  <TabBar v-if="isNeedTabBar" />
 </template>
 
 <script lang="ts" setup>
+  import Permission from '@/layout/Permission.vue';
   import TabBar from '@/components/TabBar.vue';
   import { useRoute } from 'vue-router';
   import { computed } from 'vue';
@@ -18,6 +22,7 @@
 
   const route = useRoute();
 
+  const isNeedPermission = computed(()=>!globalStore.hasAuth)
   const isNeedTabBar = computed(() => {
     return route.meta?.needTabBar ?? false;
   });

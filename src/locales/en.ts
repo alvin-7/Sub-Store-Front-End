@@ -46,6 +46,13 @@ export default {
     title: 'Oops! URL Error!',
     desc: 'Back to Home Page',
   },
+  permissionPage: {
+    submit: "Submit",
+    secret: "Secret",
+    placeholder: "please input your secret",
+    invalid: "Secret invalid",
+    succeed: "Verify Success",
+  },
   // subscription management page
   subPage: {
     addSubTitle: 'Which type you want to create?',

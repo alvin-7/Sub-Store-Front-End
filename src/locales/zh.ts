@@ -46,6 +46,13 @@ export default {
     title: '啊哦～ URL 错误！',
     desc: '回首页',
   },
+  permissionPage: {
+    submit: "提交",
+    secret: "密码",
+    placeholder: "请输入密码",
+    invalid: "密码错误",
+    succeed: "密码正确",
+  },
   // 订阅管理页
   subPage: {
     addSubTitle: '选择要创建的订阅类型',
