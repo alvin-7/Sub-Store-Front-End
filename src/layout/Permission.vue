@@ -1,7 +1,6 @@
 <script setup lang='ts'>
 import { computed, ref } from 'vue'
 import { useGlobalStore } from '@/store/global';
-import { Button, Input, Form, FormItem, OverLay } from '@nutui/nutui';
 import { useAppNotifyStore } from '@/store/appNotify';
 import { useSettingsStore } from '@/store/settings';
 import i18n from '@/locales';
@@ -54,13 +53,13 @@ function handlePress(event: KeyboardEvent) {
 </script>
 
 <template>
-  <OverLay :visible="visible">
+  <nut-popup position="bottom" :style="{ height: '20%' }" :visible="visible" :close-on-click-overlay=false :safe-area-inset-bottom=true :round="true">
     <div class="permission">
-      <Form>
-        <FormItem :label="$t('permissionPage.secret')">
-          <Input v-model="password" type="password" :placeholder="$t('permissionPage.placeholder')" clearable @keypress="handlePress" />
-        </FormItem>
-        <Button
+      <nut-form>
+        <nut-form-item :label="$t('permissionPage.secret')">
+          <nut-input v-model="password" type="password" :placeholder="$t('permissionPage.placeholder')" clearable @keypress="handlePress" />
+        </nut-form-item>
+        <nut-button
           block
           type="primary"
           :disabled="disabled"
@@ -68,16 +67,8 @@ function handlePress(event: KeyboardEvent) {
           @click="handleVerify"
         >
           {{ $t('permissionPage.submit') }}
-        </Button>
-        </Form>
+        </nut-button>
+      </nut-form>
     </div>
-  </OverLay>
+  </nut-popup>
 </template>
-
-<style scoped lang="scss">
-  .permission {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-</style>
