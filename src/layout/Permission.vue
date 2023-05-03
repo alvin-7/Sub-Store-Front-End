@@ -39,6 +39,9 @@ async function handleVerify() {
   }
   finally {
     globalStore.setAuth(token)
+    this.$router.push({
+      path: "/"
+    })
     window.location.reload()
   }
 }
