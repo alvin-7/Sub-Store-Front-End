@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { useEnvApi } from '@/api/env';
+import {settoken} from '@/api';
 
 const envApi = useEnvApi();
 
@@ -20,7 +21,8 @@ export const useGlobalStore = defineStore('globalStore', {
   actions: {
     setAuth(auth: string) {
       this.auth = auth;
-      window.localStorage.setItem("auth", auth)
+      window.localStorage.setItem("auth", auth);
+      settoken(auth);
     },
     setBottomSafeArea(height: number) {
       this.bottomSafeArea = height;
